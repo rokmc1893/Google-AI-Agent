@@ -40,10 +40,10 @@ npm run build
 
 **`https://<GitHub아이디>.github.io/<저장소이름>/`**
 
-- 예시: [https://xinto99.github.io/landing-page/](https://xinto99.github.io/landing-page/) → 아이디 `xinto99`, 저장소 이름 `landing-page`
-- **지금 이 저장소** (이름이 `Google-AI-Agent`인 경우): **`https://rokmc1893.github.io/Google-AI-Agent/`**
+- 예: 아이디가 `myuser`이고 저장소 이름이 `my-app`이면 → `https://myuser.github.io/my-app/`
+- **이 저장소** (이름이 `Google-AI-Agent`인 경우): **`https://rokmc1893.github.io/Google-AI-Agent/`**
 
-저장소 이름이 곧 주소의 마지막 경로입니다. **예시와 똑같이 `.../landing-page/`로 쓰고 싶다면**, GitHub에서 **Settings → General → Repository name** 을 `landing-page`로 변경하면 됩니다. (이름을 바꾼 뒤 한 번 워크플로를 돌리면 `vite`의 `base`도 자동으로 `/landing-page/`에 맞춰집니다.)
+저장소 이름이 곧 URL의 마지막 경로입니다. **Settings → General → Repository name** 에서 저장소 이름을 바꾸면, 배포 URL의 경로도 같이 바뀝니다. (이름을 바꾼 뒤 워크플로를 한 번 돌리면 `vite`의 `base`도 CI에서 자동으로 맞춰집니다.)
 
 ### 1) 저장소 설정 (최초 1회) — **브랜치 배포 방식**
 

@@ -678,14 +678,25 @@ const App: React.FC = () => {
             <p data-i18n className="mt-3 max-w-prose text-sm leading-relaxed text-white/90 sm:text-base">
               {text.ctaBody}
             </p>
-            <div className="mt-8 w-full max-w-2xl px-1">
-              <img
-                src={KIWI.ctaKiwiSlices}
-                alt="루비 키위 슬라이스"
-                className="mx-auto h-auto w-full max-h-44 object-contain object-center drop-shadow-[0_12px_32px_rgba(0,0,0,0.35)] sm:max-h-52"
-                loading="lazy"
-                decoding="async"
-              />
+            <div className="mt-8 w-full max-w-2xl px-2 sm:px-0">
+              <div className="relative mx-auto overflow-hidden rounded-[1.75rem] sm:rounded-[2.5rem]">
+                <img
+                  src={KIWI.ctaKiwiSlices}
+                  alt="루비 키위 슬라이스"
+                  className="relative z-0 block w-full max-h-48 object-contain object-center sm:max-h-56"
+                  loading="lazy"
+                  decoding="async"
+                />
+                {/* 둥근 모서리 + 가장자리 비네트: 사진 흰 배경이 섹션 레드에 자연스럽게 이어지도록 */}
+                <div
+                  className="pointer-events-none absolute inset-0 z-10 rounded-[inherit] [box-shadow:inset_0_0_72px_40px_rgba(55,6,16,0.9),inset_0_0_24px_10px_rgba(90,8,25,0.45)]"
+                  aria-hidden
+                />
+                <div
+                  className="pointer-events-none absolute inset-0 z-10 rounded-[inherit] [background:radial-gradient(ellipse_100%_100%_at_50%_50%,transparent_0%,transparent_40%,rgba(20,2,6,0.35)_100%)]"
+                  aria-hidden
+                />
+              </div>
             </div>
             <button
               ref={ctaButtonRef}

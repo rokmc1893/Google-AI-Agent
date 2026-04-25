@@ -44,11 +44,14 @@ npm run build
 
 ### 1) 저장소 설정 (최초 1회)
 
-배포는 **`gh-pages` 브랜치에 직접 푸시하지 않고**, GitHub이 제공하는 **Pages 전용 배포 API**를 씁니다. 그래서 예전처럼 Actions에 **Read and write**를 켤 필요가 없습니다(기본 **Read**로 충분).
+**무료 GitHub 계정에서는 비공개(Private) 저장소에 GitHub Pages를 켤 수 없습니다.**  
+Pages 설정 화면에 “Upgrade or make this repository public…”만 보이면, 먼저 저장소를 **Public**으로 바꿔야 **Build and deployment** 블록이 나타납니다.
 
-1. **Settings → Pages** 로 이동합니다.
-2. **Build and deployment** → **Source**를 **GitHub Actions** 로 바꿉니다.  
-   (이전에 **Deploy from a branch** + `gh-pages` 로 두었다면, 반드시 **GitHub Actions** 로 바꿔 주세요.)
+1. **Settings → General** → 맨 아래 **Danger Zone** → **Change repository visibility** → **Make public** (과제 제출용으로 흔히 사용).
+2. **Settings → Pages** 로 이동합니다.
+3. **Build and deployment** → **Source**를 **GitHub Actions** 로 바꿉니다.
+
+배포는 **`gh-pages` 브랜치에 직접 푸시하지 않고**, GitHub이 제공하는 **Pages 전용 배포 API**를 씁니다. Actions 기본 토큰 권한(**Read** 위주)으로 동작합니다.
 
 ### 2) 배포 방법
 
@@ -57,15 +60,20 @@ npm run build
 
 자세한 설명은 GitHub 문서 [Publishing with a custom GitHub Actions workflow](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#publishing-with-a-custom-github-actions-workflow) 를 참고하면 됩니다.
 
-### 배포가 404로 실패할 때 (`Creating Pages deployment failed`)
+### 배포가 404로 실패할 때 (`Get Pages site failed` / `Creating Pages deployment failed`)
 
-Actions 로그에 **`Failed to create deployment (status: 404)`** 가 나오면, 코드 문제가 아니라 **저장소에서 GitHub Pages가 아직 “켜지지 않은” 상태**인 경우가 많습니다.
+Actions 로그에 아래가 보이면 **앱 코드 문제가 아니라 Pages 설정/API 문제**입니다.
 
-1. **Settings → Pages** 로 이동합니다.
-2. **Build and deployment**에서 **Source**를 **`GitHub Actions`** 로 선택하고 저장합니다.  
-   (한 번도 Pages를 켠 적이 없으면 이 설정이 비어 있어 배포 API가 404를 반환합니다.)
-3. 저장소가 **비공개**인 경우, 무료 플랜에서는 Pages 사용 조건이 달라질 수 있으니 [GitHub Pages 제한](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits) 을 확인합니다.
-4. 설정을 저장한 뒤, Actions에서 **실패한 워크플로를 “Re-run failed jobs”** 하거나, 빈 커밋으로 다시 푸시해 배포를 재시도합니다.
+- `Get Pages site failed` … `repository has Pages enabled`
+- `Failed to create deployment (status: 404)`
+
+**대부분 순서는 다음 중 하나입니다.**
+
+1. 저장소가 **Private**이라 Pages 자체가 비활성 → **Public**으로 전환 후 다시 **Settings → Pages**를 연다.
+2. Pages는 켜졌는데 **Source가 GitHub Actions가 아님** → **Source: GitHub Actions** 로 저장한다.
+3. 저장 후 Actions에서 **Re-run failed jobs** 하거나 새 커밋을 푸시한다.
+
+자세한 제한은 [GitHub Pages limits](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits) 를 참고합니다.
 
 ### 3) 로컬에서 Pages와 동일한 경로로 빌드 테스트 (선택)
 

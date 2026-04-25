@@ -47,6 +47,8 @@ const KIWI = {
   mobile: '/rubyred-mobile.png',
   /** 와이드 히어로(키위+타이포) — public/hero-ruby-kiwi-main.jpg */
   heroBanner: '/hero-ruby-kiwi-main.jpg',
+  /** CTA: 슬라이스 3장(화이트+버건디 배경) */
+  ctaKiwiSlices: '/cta-kiwi-slices.jpg',
 } as const
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -676,9 +678,14 @@ const App: React.FC = () => {
             <p data-i18n className="mt-3 max-w-prose text-sm leading-relaxed text-white/90 sm:text-base">
               {text.ctaBody}
             </p>
-            <div className="mt-8 flex items-center justify-center gap-4" aria-hidden>
-              <div className="h-10 w-10 rounded-full bg-gradient-to-b from-lime-300 to-emerald-800 shadow-md ring-2 ring-white/30 sm:h-12 sm:w-12" />
-              <div className="h-10 w-10 -translate-y-1 rounded-full bg-gradient-to-b from-lime-200 to-emerald-900 shadow-md ring-2 ring-white/30 sm:h-12 sm:w-12" />
+            <div className="mt-8 w-full max-w-2xl px-1">
+              <img
+                src={KIWI.ctaKiwiSlices}
+                alt="루비 키위 슬라이스"
+                className="mx-auto h-auto w-full max-h-44 object-contain object-center drop-shadow-[0_12px_32px_rgba(0,0,0,0.35)] sm:max-h-52"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
             <button
               ref={ctaButtonRef}

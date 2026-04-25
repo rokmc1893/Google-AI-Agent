@@ -36,14 +36,17 @@ npm run build
 
 ## GitHub Pages 과제 제출 링크 형식
 
-과제에서 요구하는 형식은 다음과 같습니다.
+프로젝트 저장소 하나당 주소는 **항상** 아래 형태입니다. (`github.io` 뒤의 경로는 **저장소 이름**과 같습니다.)
 
-**`https://<GitHub아이디>.github.io/<저장소이름>/landingpage/`**
+**`https://<GitHub아이디>.github.io/<저장소이름>/`**
 
-- 예: 아이디가 `myuser`이고 저장소 이름이 `my-app`이면 → `https://myuser.github.io/my-app/landingpage/`
-- **이 저장소** (이름이 `Google-AI-Agent`인 경우): **`https://rokmc1893.github.io/Google-AI-Agent/landingpage/`**
+- 예: 저장소 이름이 `my-app`이면 → `https://myuser.github.io/my-app/`
+- 저장소 이름을 **`landing-page`** 로 두면 → **`https://rokmc1893.github.io/landing-page/`** (원하는 형식)
 
-저장소 이름 다음에 **`landingpage`** 경로가 붙습니다. 빌드 결과는 `gh-pages` 브랜치의 **`landingpage/`** 폴더에 올라가며, Vite `base`와 워크플로가 이 경로에 맞춰져 있습니다. 저장소 이름을 바꾼 뒤에는 워크플로를 한 번 돌리면 됩니다.
+**`https://rokmc1893.github.io/landing-page/`** 처럼 쓰려면 GitHub에서 이 프로젝트 저장소 이름을 **`landing-page`** 로 바꾸면 됩니다.  
+**Settings → General → Repository name** → `landing-page` 로 변경 → Save. (이름을 바꾼 뒤 워크플로를 한 번 돌리면 `vite`의 `base`도 CI에서 자동으로 맞습니다.)
+
+지금 저장소 이름이 `Google-AI-Agent`라면 주소는 **`https://rokmc1893.github.io/Google-AI-Agent/`** 입니다.
 
 ### 1) 저장소 설정 (최초 1회) — **브랜치 배포 방식**
 
@@ -64,7 +67,7 @@ npm run build
 ### 2) 배포 이후 확인
 
 - Actions에서 해당 실행이 **초록색(성공)** 인지 확인합니다.
-- 잠시 후 `https://rokmc1893.github.io/Google-AI-Agent/landingpage/` 로 접속합니다.
+- 잠시 후 **`https://rokmc1893.github.io/<저장소이름>/`** 로 접속합니다. (저장소 이름과 경로가 동일)
 
 ### 브라우저에 **「There isn't a GitHub Pages site here」** / **404** 가 뜰 때
 
@@ -73,8 +76,8 @@ npm run build
 아래를 **위에서부터** 확인하세요.
 
 1. **주소가 정확한지**  
-   프로젝트 페이지는 반드시 **`https://rokmc1893.github.io/Google-AI-Agent/landingpage/`** 처럼 **저장소 이름 + `/landingpage/`** 까지 포함해야 합니다.  
-   `https://rokmc1893.github.io/` 만 열면 (저장소 없이 사용자 사이트만) 대부분 이렇게 뜹니다.
+   프로젝트 페이지는 **`https://rokmc1893.github.io/<저장소이름>/`** 처럼 **저장소 이름까지** 포함해야 합니다. (저장소를 `landing-page`로 바꿨다면 `.../landing-page/`)  
+   `https://rokmc1893.github.io/` 만 열면 (특정 저장소 경로 없이) 대부분 이렇게 뜹니다.
 
 2. **Pages 소스가 `gh-pages` 브랜치인지**  
    예전에 **Source: GitHub Actions** 로 두었다면, 지금 워크플로는 **`gh-pages`에 올리는 방식**이라 설정을 바꿔야 합니다.  
@@ -95,7 +98,7 @@ npm run build
 | 증상 | 조치 |
 | --- | --- |
 | `remote: Permission denied` / 푸시 실패 | **Workflow permissions**를 **Read and write**로 바꿨는지 확인 |
-| 사이트는 열리는데 **하얀 화면·404** | 주소 끝에 **`/landingpage/`** 가 있는지 확인. CI 빌드는 상대 `base`이며 배포는 `gh-pages/landingpage/`에 올라갑니다. |
+| 사이트는 열리는데 **하얀 화면·404** | 주소의 **저장소 이름**이 GitHub 저장소 이름과 같은지 확인. CI 빌드는 상대 `base`(`./`)이며 `gh-pages` **루트**에 올라갑니다. |
 | Pages 설정에 **브랜치 선택이 안 보임** | 저장소 **Public** 여부, 그리고 **`gh-pages` 브랜치가 생성됐는지** 확인 |
 
 자세한 제한은 [GitHub Pages limits](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits) 를 참고합니다.
@@ -105,17 +108,17 @@ npm run build
 CI와 같이 **상대 경로(`./`) base**로 빌드하려면:
 
 ```bash
-GITHUB_ACTIONS=true GITHUB_REPOSITORY=rokmc1893/Google-AI-Agent npm run build
+GITHUB_ACTIONS=true GITHUB_REPOSITORY=rokmc1893/<저장소이름> npm run build
 npx vite preview
 ```
 
-배포와 **동일한 URL 경로**(`/저장소/landingpage/`)로 로컬에서 보려면 `GITHUB_ACTIONS` 없이:
+배포와 **동일한 절대 경로**로 로컬에서 보려면 `GITHUB_ACTIONS` 없이:
 
 ```bash
-GITHUB_REPOSITORY=rokmc1893/Google-AI-Agent npm run build
+GITHUB_REPOSITORY=rokmc1893/<저장소이름> npm run build
 npx vite preview
 ```
 
-터미널에 나온 주소에 **`/Google-AI-Agent/landingpage/`** 를 붙여 접속하면 됩니다.
+예: 저장소가 `landing-page`이면 빌드 후 `http://localhost:4173/landing-page/` 로 접속합니다.
 
 또한 `public/.nojekyll` 을 두어 GitHub Pages의 Jekyll 처리로 인한 누락을 막습니다.

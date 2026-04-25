@@ -27,7 +27,7 @@ jobs:
           cache: npm
 
       - run: npm ci
-      - name: Build (Vite base = ./ → gh-pages/landingpage/)
+      - name: Build (Vite base = ./, publish to gh-pages root)
         run: npm run build
         env:
           GITHUB_REPOSITORY: ${{ github.repository }}
@@ -37,9 +37,8 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-          destination_dir: landingpage
 
       - name: Pages URL (branch 연결 후 접속)
         run: |
           echo "저장소 Pages에서 Branch=gh-pages, /(root) 저장 후 접속:"
-          echo "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/landingpage/"
+          echo "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"

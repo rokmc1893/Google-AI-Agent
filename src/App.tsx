@@ -34,6 +34,10 @@ type Copy = {
   ctaTitle: string
   ctaBody: string
   ctaButton: string
+  heroNaturally: string
+  heroBerrySweet: string
+  bottomBannerTitle: string
+  navTagline: string
 }
 
 const KIWI = {
@@ -42,7 +46,7 @@ const KIWI = {
   product: '/rubyred-product.png',
   middle: '/rubyred-middle.jpg',
   mobile: '/rubyred-mobile.png',
-  bottom: '/rubyred-bottom.png',
+  heroSlice: '/ruby-kiwi-hero-extra-2.png',
 } as const
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -81,6 +85,10 @@ const COPY: Record<Language, Copy> = {
     ctaTitle: '루비레드 키위를 직접 맛보세요!',
     ctaBody: '공식 네이버 브랜드스토어와 온/오프라인 채널에서 만나보실 수 있습니다.',
     ctaButton: '구매하기',
+    heroNaturally: 'Naturally',
+    heroBerrySweet: 'BERRY SWEET',
+    bottomBannerTitle: 'RUBY KIWI만의 특별한 맛!',
+    navTagline: '루비레드 키위  ·  키위와 건강  ·  구매하기',
   },
   en: {
     brand: 'RUBY KIWI',
@@ -115,6 +123,10 @@ const COPY: Record<Language, Copy> = {
     ctaTitle: 'Taste RubyRed kiwifruit',
     ctaBody: 'Find it through official online channels and selected stores.',
     ctaButton: 'Shop now',
+    heroNaturally: 'Naturally',
+    heroBerrySweet: 'BERRY SWEET',
+    bottomBannerTitle: 'The one-of-a-kind taste of RUBY KIWI!',
+    navTagline: 'Ruby kiwi  ·  Health  ·  Shop',
   },
 }
 
@@ -366,33 +378,41 @@ const App: React.FC = () => {
       ref={rootRef}
       className="min-h-screen bg-gradient-to-br from-shell via-rose-mist/55 to-cream font-sans text-stone-900 antialiased"
     >
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-ruby/10 bg-panel/90 backdrop-blur-md supports-[backdrop-filter]:bg-panel/85">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3.5 sm:px-8">
-          <button
-            type="button"
-            onClick={() => scrollToSection('top')}
-            data-i18n
-            className="text-left text-xs font-extrabold tracking-[0.22em] text-[#d21f58] sm:text-sm"
-          >
-            {text.brand}
-          </button>
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-ruby/10 bg-white/95 backdrop-blur-md">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3.5 sm:px-8">
+          <div className="min-w-0 text-left">
+            <button
+              type="button"
+              onClick={() => scrollToSection('top')}
+              data-i18n
+              className="block text-sm font-extrabold tracking-[0.2em] text-[#c91840] sm:text-base"
+            >
+              {text.brand}
+            </button>
+            <p
+              data-i18n
+              className="mt-0.5 hidden text-[10px] font-medium leading-snug text-stone-500 min-[400px]:block sm:text-[11px]"
+            >
+              {text.navTagline}
+            </p>
+          </div>
 
           <nav
-            className="hidden min-[480px]:flex items-center gap-5 text-[11px] font-medium tracking-wide text-stone-600 sm:gap-7 sm:text-xs"
+            className="hidden min-[480px]:flex max-w-min shrink-0 items-center gap-4 text-[11px] font-medium text-stone-600 sm:gap-6 sm:text-xs"
             aria-label="Primary"
           >
-            <button type="button" data-i18n onClick={() => scrollToSection('top')} className="transition hover:text-ruby">
+            <button type="button" data-i18n onClick={() => scrollToSection('top')} className="whitespace-nowrap transition hover:text-ruby">
               {text.navHome}
             </button>
-            <button type="button" data-i18n onClick={() => scrollToSection('nutrition')} className="transition hover:text-ruby">
+            <button type="button" data-i18n onClick={() => scrollToSection('nutrition')} className="whitespace-nowrap transition hover:text-ruby">
               {text.navProduct}
             </button>
-            <button type="button" data-i18n onClick={() => scrollToSection('contact')} className="transition hover:text-ruby">
+            <button type="button" data-i18n onClick={() => scrollToSection('contact')} className="whitespace-nowrap transition hover:text-ruby">
               {text.navContact}
             </button>
           </nav>
 
-          <div className="flex items-center gap-0.5 text-[11px] font-medium text-stone-500 sm:text-xs">
+          <div className="flex shrink-0 items-center gap-0.5 text-[11px] font-medium text-stone-500 sm:text-xs">
             <button
               type="button"
               onClick={() => setLanguage('kr')}
@@ -412,49 +432,88 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      <section ref={heroRef} id="top" className="border-b border-ruby/10 bg-ivory-rose pb-14 pt-16 sm:pb-20 sm:pt-[4.75rem]">
-        <div className="relative mx-auto max-w-6xl px-0 sm:px-6">
-          <div className="relative h-[min(58vh,560px)] min-h-[300px] w-full overflow-hidden sm:rounded-[2rem] sm:ring-1 sm:ring-ruby/12">
-            <img
-              ref={heroBgRef}
-              src={KIWI.masthead}
-              alt="RubyRed kiwifruit masthead"
-              className="pointer-events-none absolute inset-0 h-full w-full scale-105 object-cover object-center"
-              fetchPriority="high"
-            />
+      <section ref={heroRef} id="top" className="border-b border-ruby/10 bg-ivory-rose pb-12 pt-16 sm:pb-20 sm:pt-[4.75rem]">
+        <div className="relative mx-auto max-w-6xl px-0 sm:px-4">
+          {/* 참고: 구 기획안 스타일 — 할프톤 레드, 메인 키위, Naturally / BERRY SWEET (이미지 내 타사 스티커는 패치로 가림) */}
+          <div className="relative overflow-hidden sm:rounded-[2rem] sm:ring-1 sm:ring-white/20">
+            <div className="bg-halftone-hero absolute inset-0" aria-hidden />
             <div
               ref={heroDimRef}
-              className="absolute inset-0 bg-gradient-to-r from-ivory-rose/95 via-rose-mist/55 to-transparent"
+              className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black/20"
             />
-            <div className="relative z-10 flex h-full max-w-xl flex-col justify-center px-6 py-14 sm:px-12 lg:px-16">
-              <p data-i18n className="text-[11px] font-semibold uppercase tracking-[0.24em] text-ruby sm:text-xs">
-                {text.heroKicker}
-              </p>
-              <h1 className="mt-4 text-balance">
+            <div className="relative z-10 grid min-h-[min(64vh,620px)] items-center gap-6 px-4 py-10 sm:grid-cols-2 sm:gap-2 sm:px-8 sm:py-12 lg:min-h-[min(70vh,680px)]">
+              <div className="relative flex min-h-[240px] items-center justify-center sm:min-h-[320px]">
+                <div
+                  className="pointer-events-none absolute left-1/2 top-1/2 h-[min(100vw,24rem)] w-[min(100vw,24rem)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/25 blur-3xl"
+                  aria-hidden
+                />
+                <div
+                  className="pointer-events-none absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rotate-3 rounded-full border-2 border-white/35"
+                  aria-hidden
+                />
+                <div className="relative z-10 w-full max-w-md px-2">
+                  <img
+                    ref={heroBgRef}
+                    src={KIWI.masthead}
+                    alt="RUBY KIWI — 레드 키위"
+                    className="relative z-10 mx-auto w-full max-w-[20rem] object-contain drop-shadow-2xl sm:max-w-[24rem]"
+                    fetchPriority="high"
+                  />
+                  <div
+                    className="absolute bottom-[6%] left-[4%] z-20 h-8 w-[4.2rem] rounded-sm bg-gradient-to-br from-stone-900/95 to-stone-800/90 shadow-sm ring-1 ring-black/20 sm:bottom-[8%] sm:left-[8%] sm:h-9"
+                    title=""
+                    role="presentation"
+                    aria-hidden
+                  />
+                  <img
+                    src={KIWI.heroSlice}
+                    alt=""
+                    className="absolute -right-1 top-0 z-20 w-24 -rotate-6 object-contain drop-shadow-lg sm:-right-2 sm:top-2 sm:w-32 sm:rotate-12"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col items-center justify-center px-2 text-center sm:items-end sm:pr-2 sm:text-right">
+                <p
+                  data-i18n
+                  className="font-hero-script text-4xl leading-tight text-white drop-shadow-sm sm:text-5xl md:text-6xl"
+                >
+                  {text.heroNaturally}
+                </p>
+                <p
+                  data-i18n
+                  className="font-hero-display mt-1 text-4xl leading-[0.9] tracking-[0.12em] text-amber-100 drop-shadow-md sm:mt-2 sm:text-6xl md:text-7xl"
+                >
+                  {text.heroBerrySweet}
+                </p>
+                <p data-i18n className="mt-5 max-w-sm text-pretty text-xs font-medium text-white/90 sm:mt-7 sm:text-sm">
+                  {text.heroKicker} · {text.heroTitleLine1} {text.heroTitleLine2}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="relative z-10 mx-auto -mt-6 max-w-3xl px-4 sm:-mt-10 sm:px-0">
+            <div
+              ref={heroTextRef}
+              className="rounded-2xl bg-panel/95 p-7 text-center shadow-xl shadow-ruby/10 ring-1 ring-ruby/12 backdrop-blur-sm sm:p-9"
+            >
+              <h1 className="text-balance">
                 <span
                   data-i18n
-                  className="block text-3xl font-bold leading-tight tracking-tight text-stone-900 sm:text-4xl md:text-5xl"
+                  className="block text-xl font-bold leading-tight tracking-tight text-stone-900 sm:text-2xl"
                 >
                   {text.heroTitleLine1}
                 </span>
                 <span
                   data-i18n
-                  className="mt-1 block text-3xl font-bold leading-tight tracking-tight text-stone-900 sm:text-4xl md:text-5xl"
+                  className="mt-0.5 block text-xl font-bold leading-tight tracking-tight text-stone-900 sm:text-2xl"
                 >
                   {text.heroTitleLine2}
                 </span>
               </h1>
-            </div>
-          </div>
-
-          <div className="relative z-10 mx-auto -mt-8 max-w-3xl px-5 sm:-mt-12 sm:px-0">
-            <div
-              ref={heroTextRef}
-              className="rounded-2xl bg-panel/92 p-7 text-center shadow-xl shadow-ruby/10 ring-1 ring-ruby/12 backdrop-blur-sm sm:p-9"
-            >
               <p
                 data-i18n
-                className="mx-auto max-w-prose text-left text-sm leading-relaxed text-stone-600 sm:text-base"
+                className="mx-auto mt-4 max-w-prose text-left text-sm leading-relaxed text-stone-600 sm:text-base"
               >
                 {text.heroLead}
               </p>
@@ -619,34 +678,53 @@ const App: React.FC = () => {
       <section
         ref={ctaRef}
         id="contact"
-        className="scroll-mt-24 border-b border-ruby/10 bg-ivory-rose px-5 py-16 sm:px-6 sm:py-20"
+        className="scroll-mt-24 border-b border-ruby/10 bg-ivory-rose"
       >
-        <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-          <img
-            src={KIWI.bottom}
-            alt="Taste RubyRed kiwifruit"
-            className="w-full rounded-[1.75rem] object-cover shadow-lg ring-1 ring-ruby/12"
-            loading="lazy"
+        <div className="relative overflow-hidden bg-gradient-to-b from-[#c91840] via-[#a81435] to-[#7a0c28] px-5 py-16 text-center sm:px-8 sm:py-24">
+          <div
+            className="pointer-events-none absolute inset-0 bg-halftone-hero opacity-40 mix-blend-multiply"
+            aria-hidden
           />
-          <h2 data-i18n className="mt-10 text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl">
-            {text.ctaTitle}
-          </h2>
-          <p data-i18n className="mt-4 max-w-prose text-sm leading-relaxed text-stone-600 sm:text-base">
-            {text.ctaBody}
-          </p>
-          <button
-            ref={ctaButtonRef}
-            data-i18n
-            type="button"
-            className="mt-8 rounded-full bg-ruby px-10 py-3.5 text-sm font-semibold text-white shadow-md shadow-ruby/25 transition hover:bg-ruby-deep"
-          >
-            {text.ctaButton}
-          </button>
+          <div
+            className="pointer-events-none absolute -left-20 top-10 h-56 w-56 rounded-full bg-white/10 blur-3xl"
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none absolute -right-10 bottom-0 h-48 w-48 rounded-full bg-amber-200/10 blur-3xl"
+            aria-hidden
+          />
+          <div className="relative mx-auto flex max-w-3xl flex-col items-center">
+            <p
+              data-i18n
+              className="text-2xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl"
+            >
+              {text.bottomBannerTitle}
+            </p>
+            <h2 data-i18n className="mt-6 text-lg font-semibold text-white/95 sm:text-2xl">
+              {text.ctaTitle}
+            </h2>
+            <p data-i18n className="mt-3 max-w-prose text-sm leading-relaxed text-white/90 sm:text-base">
+              {text.ctaBody}
+            </p>
+            <div className="mt-8 flex items-center justify-center gap-4" aria-hidden>
+              <div className="h-10 w-10 rounded-full bg-gradient-to-b from-lime-300 to-emerald-800 shadow-md ring-2 ring-white/30 sm:h-12 sm:w-12" />
+              <div className="h-10 w-10 -translate-y-1 rounded-full bg-gradient-to-b from-lime-200 to-emerald-900 shadow-md ring-2 ring-white/30 sm:h-12 sm:w-12" />
+            </div>
+            <button
+              ref={ctaButtonRef}
+              data-i18n
+              type="button"
+              onClick={() => scrollToSection('top')}
+              className="mt-10 rounded-full bg-white px-10 py-3.5 text-sm font-bold text-[#a81435] shadow-lg shadow-black/20 transition hover:bg-amber-50"
+            >
+              {text.ctaButton}
+            </button>
+          </div>
         </div>
       </section>
 
       <footer className="border-t border-ruby/10 bg-panel/95 py-8 text-center text-xs text-stone-500 backdrop-blur-sm">
-        © {new Date().getFullYear()} RubyRed Kiwifruit
+        © {new Date().getFullYear()} RUBY KIWI
       </footer>
     </div>
   )

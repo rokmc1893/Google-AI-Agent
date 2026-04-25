@@ -1,6 +1,9 @@
 @import 'tailwindcss';
 
+/* 히어로 “Naturally / BERRY SWEET” + 할프톤 배경용 */
 @theme {
+  --font-script: 'Great Vibes', cursive;
+  --font-display-hero: 'Bebas Neue', system-ui, sans-serif;
   /* 루비 키우 살·광택 (자두·베리 레드) */
   --color-ruby: #9f1f3c;
   --color-ruby-deep: #5c1024;
@@ -15,4 +18,21 @@
   --color-shell: #f3ecee;
   --color-ivory-rose: #faf6f7;
   --color-panel: #fdf9fa;
+}
+
+@layer components {
+  .bg-halftone-hero {
+    background-color: #c91840;
+    background-image: radial-gradient(
+      rgba(0, 0, 0, 0.22) 1.5px,
+      transparent 1.5px
+    );
+    background-size: 9px 9px;
+  }
+  .font-hero-script {
+    font-family: var(--font-script);
+  }
+  .font-hero-display {
+    font-family: var(--font-display-hero);
+  }
 }

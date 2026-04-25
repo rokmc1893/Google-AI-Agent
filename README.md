@@ -42,36 +42,34 @@ npm run build
 
 (저장소 이름이 바뀌면 마지막 경로만 같이 바뀝니다.)
 
-### 1) 저장소 설정 (최초 1회)
+### 1) 저장소 설정 (최초 1회) — **브랜치 배포 방식**
 
-**무료 GitHub 계정에서는 비공개(Private) 저장소에 GitHub Pages를 켤 수 없습니다.**  
-Pages 설정 화면에 “Upgrade or make this repository public…”만 보이면, 먼저 저장소를 **Public**으로 바꿔야 **Build and deployment** 블록이 나타납니다.
+`actions/deploy-pages` 방식은 저장소에서 **Pages 소스 = GitHub Actions** 로 켜져 있어야 해서, 설정이 비어 있으면 **404**가 자주 납니다.  
+그래서 이 저장소는 더 단순한 방식으로 바꿨습니다: **`gh-pages` 브랜치에 빌드 결과(`dist`)를 푸시**하고, Pages에서는 **그 브랜치를 웹 루트로 서빙**합니다.
 
-1. **Settings → General** → 맨 아래 **Danger Zone** → **Change repository visibility** → **Make public** (과제 제출용으로 흔히 사용).
-2. **Settings → Pages** 로 이동합니다.
-3. **Build and deployment** → **Source**를 **GitHub Actions** 로 바꿉니다.
+1. **저장소를 Public으로** (무료 계정 + Private이면 Pages가 막히는 경우가 많습니다.)  
+   **Settings → General → Danger Zone → Change repository visibility → Make public**
+2. **Actions가 브랜치에 쓸 수 있게 권한 허용** (이 단계 없으면 `gh-pages` 푸시가 실패합니다.)  
+   **Settings → Actions → General → Workflow permissions** → **Read and write permissions** → Save
+3. **한 번 워크플로 실행**  
+   `main` 또는 `1주차`에 푸시하면 **Deploy to GitHub Pages** 워크플로가 돌고, 성공 시 **`gh-pages` 브랜치**가 생깁니다.
+4. **Pages에 브랜치 연결**  
+   **Settings → Pages** → **Build and deployment** → **Source: Deploy from a branch**  
+   → Branch: **`gh-pages`** / Folder: **`/(root)`** → Save  
+   (`gh-pages`가 드롭다운에 없으면 3번 워크플로가 끝난 뒤 새로고침합니다.)
 
-배포는 **`gh-pages` 브랜치에 직접 푸시하지 않고**, GitHub이 제공하는 **Pages 전용 배포 API**를 씁니다. Actions 기본 토큰 권한(**Read** 위주)으로 동작합니다.
+### 2) 배포 이후 확인
 
-### 2) 배포 방법
+- Actions에서 해당 실행이 **초록색(성공)** 인지 확인합니다.
+- 잠시 후 `https://rokmc1893.github.io/Google-AI-Agent/` 로 접속합니다.
 
-- `main` 또는 `1주차` 브랜치에 푸시하면 워크플로가 `npm run build` 후 결과물을 Pages에 올립니다.
-- Actions 탭에서 **Deploy to GitHub Pages** 워크플로가 초록색으로 끝나면, 위 Pages 주소로 접속해 확인합니다.
+### 배포가 실패할 때 (자주 나는 원인)
 
-자세한 설명은 GitHub 문서 [Publishing with a custom GitHub Actions workflow](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#publishing-with-a-custom-github-actions-workflow) 를 참고하면 됩니다.
-
-### 배포가 404로 실패할 때 (`Get Pages site failed` / `Creating Pages deployment failed`)
-
-Actions 로그에 아래가 보이면 **앱 코드 문제가 아니라 Pages 설정/API 문제**입니다.
-
-- `Get Pages site failed` … `repository has Pages enabled`
-- `Failed to create deployment (status: 404)`
-
-**대부분 순서는 다음 중 하나입니다.**
-
-1. 저장소가 **Private**이라 Pages 자체가 비활성 → **Public**으로 전환 후 다시 **Settings → Pages**를 연다.
-2. Pages는 켜졌는데 **Source가 GitHub Actions가 아님** → **Source: GitHub Actions** 로 저장한다.
-3. 저장 후 Actions에서 **Re-run failed jobs** 하거나 새 커밋을 푸시한다.
+| 증상 | 조치 |
+| --- | --- |
+| `remote: Permission denied` / 푸시 실패 | **Workflow permissions**를 **Read and write**로 바꿨는지 확인 |
+| 사이트는 열리는데 **하얀 화면·404** | `vite.config.ts`의 `base`가 저장소 이름과 맞는지 확인 (CI에서는 `GITHUB_REPOSITORY`로 자동 설정) |
+| Pages 설정에 **브랜치 선택이 안 보임** | 저장소 **Public** 여부, 그리고 **`gh-pages` 브랜치가 생성됐는지** 확인 |
 
 자세한 제한은 [GitHub Pages limits](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits) 를 참고합니다.
 

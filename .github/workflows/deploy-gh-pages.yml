@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - '1주차'
   workflow_dispatch:
 
 # gh-pages 브랜치에 dist를 푸시하려면 GITHUB_TOKEN 쓰기 권한이 필요합니다.
@@ -37,6 +36,8 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+          # 매 배포마다 gh-pages를 단일 커밋으로 갱신(히스토리 단순화)
+          force_orphan: true
 
       - name: Pages URL (branch 연결 후 접속)
         run: |

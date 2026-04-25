@@ -34,19 +34,22 @@ npm run build
 
 - [Google-AI-Agent](https://github.com/rokmc1893/Google-AI-Agent)
 
-## GitHub Pages 과제 제출 링크 형식
+## 브랜치
 
-프로젝트 저장소 하나당 주소는 **항상** 아래 형태입니다. (`github.io` 뒤의 경로는 **저장소 이름**과 같습니다.)
+- **작업은 `main`만** 사용하면 됩니다.
+- **`gh-pages`** 는 GitHub Actions가 빌드 결과만 올리는 **배포 전용** 브랜치입니다. Pages가 동작하려면 필요하므로 **삭제하지 마세요.** (Code 탭에 보여도 정상입니다.)
 
-**`https://<GitHub아이디>.github.io/<저장소이름>/`**
+## GitHub Pages — 이 저장소에서 쓸 주소
 
-- 예: 저장소 이름이 `my-app`이면 → `https://myuser.github.io/my-app/`
-- 저장소 이름을 **`landing-page`** 로 두면 → **`https://rokmc1893.github.io/landing-page/`** (원하는 형식)
+원격 저장소 이름이 **`Google-AI-Agent`** 이므로, 사이트 주소는 **아래 하나만** 맞습니다.
 
-**`https://rokmc1893.github.io/landing-page/`** 처럼 쓰려면 GitHub에서 이 프로젝트 저장소 이름을 **`landing-page`** 로 바꾸면 됩니다.  
-**Settings → General → Repository name** → `landing-page` 로 변경 → Save. (이름을 바꾼 뒤 워크플로를 한 번 돌리면 `vite`의 `base`도 CI에서 자동으로 맞습니다.)
+### **https://rokmc1893.github.io/Google-AI-Agent/**
 
-지금 저장소 이름이 `Google-AI-Agent`라면 주소는 **`https://rokmc1893.github.io/Google-AI-Agent/`** 입니다.
+`https://rokmc1893.github.io/landing-page/` 로 열면 **항상 404**가 납니다. (`landing-page`라는 **이름의 저장소**가 따로 있을 때만 그 주소가 열립니다. 지금 작업 중인 저장소와는 무관합니다.)
+
+일반 규칙: **`https://<아이디>.github.io/<GitHub에 보이는 저장소 이름>/`**
+
+저장소 이름을 바꾸면 URL도 같이 바뀝니다. (예: 이름을 `landing-page`로 바꾼 뒤 배포하면 `.../landing-page/`가 됩니다.)
 
 ### 1) 저장소 설정 (최초 1회) — **브랜치 배포 방식**
 
@@ -58,7 +61,7 @@ npm run build
 2. **Actions가 브랜치에 쓸 수 있게 권한 허용** (이 단계 없으면 `gh-pages` 푸시가 실패합니다.)  
    **Settings → Actions → General → Workflow permissions** → **Read and write permissions** → Save
 3. **한 번 워크플로 실행**  
-   `main` 또는 `1주차`에 푸시하면 **Deploy to GitHub Pages** 워크플로가 돌고, 성공 시 **`gh-pages` 브랜치**가 생깁니다.
+   **`main`** 에 푸시하면 **Deploy to GitHub Pages** 워크플로가 돌고, 성공 시 **`gh-pages` 브랜치**가 생기거나 갱신됩니다.
 4. **Pages에 브랜치 연결**  
    **Settings → Pages** → **Build and deployment** → **Source: Deploy from a branch**  
    → Branch: **`gh-pages`** / Folder: **`/(root)`** → Save  

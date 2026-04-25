@@ -1,12 +1,18 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-ruby: #e0115f;
-  --color-ruby-dark: #9a0c44;
-  --color-kiwi: #8ee53f;
-  --color-kiwi-soft: #b8f57a;
-  --color-ink: #1a0a10;
-  --color-muted: #5c4a52;
-  --color-surface: #fffafb;
-  --color-surface-2: #f6fff0;
+  /* 루비 키우 살·광택 (자두·베리 레드) */
+  --color-ruby: #9f1f3c;
+  --color-ruby-deep: #5c1024;
+  /* 키위 껍질·잎 느낌 */
+  --color-kiwi: #9eb388;
+  --color-kiwi-muted: #e2ead8;
+  /* 배경: 따뜻한 크림 + 살짝 핑크 */
+  --color-cream: #faf5f1;
+  --color-blush: #f4e5e6;
+  --color-rose-mist: #f8edf0;
+  /* 풀블리드 좌우·섹션용: 루비와 어울리는 은은한 톤 */
+  --color-shell: #f3ecee;
+  --color-ivory-rose: #faf6f7;
+  --color-panel: #fdf9fa;
 }

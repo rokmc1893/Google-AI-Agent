@@ -41,12 +41,12 @@ type Copy = {
 }
 
 const KIWI = {
-  masthead: '/rubyred-masthead.jpg',
   blog: '/rubyred-blog.png',
   product: '/rubyred-product.png',
   middle: '/rubyred-middle.jpg',
   mobile: '/rubyred-mobile.png',
-  heroSlice: '/ruby-kiwi-hero-extra-2.png',
+  /** 프로모션 배너(좌·우 레이아웃) — public/hero-ruby-kiwi-banner.png */
+  heroBanner: '/hero-ruby-kiwi-banner.png',
 } as const
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -434,60 +434,39 @@ const App: React.FC = () => {
 
       <section ref={heroRef} id="top" className="border-b border-ruby/10 bg-ivory-rose pb-12 pt-16 sm:pb-20 sm:pt-[4.75rem]">
         <div className="relative mx-auto max-w-6xl px-0 sm:px-4">
-          {/* 참고: 구 기획안 스타일 — 할프톤 레드, 메인 키위, Naturally / BERRY SWEET (이미지 내 타사 스티커는 패치로 가림) */}
-          <div className="relative overflow-hidden sm:rounded-[2rem] sm:ring-1 sm:ring-white/20">
+          {/* 프로모션 배너 이미지 1장(좌: 콜라주 / 우: Naturally·BERRY SWEET) — HTML 텍스트는 스크린리더용만 */}
+          <div className="relative overflow-hidden sm:rounded-[2rem] sm:ring-1 sm:ring-white/15">
             <div className="bg-halftone-hero absolute inset-0" aria-hidden />
             <div
               ref={heroDimRef}
-              className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black/20"
+              className="absolute inset-0 bg-gradient-to-b from-black/0 via-transparent to-black/15"
             />
-            <div className="relative z-10 grid min-h-[min(64vh,620px)] items-center gap-6 px-4 py-10 sm:grid-cols-2 sm:gap-2 sm:px-8 sm:py-12 lg:min-h-[min(70vh,680px)]">
-              <div className="relative flex min-h-[240px] items-center justify-center sm:min-h-[320px]">
+            <div className="relative z-10">
+              <p className="sr-only">
+                {text.heroNaturally} {text.heroBerrySweet}. {text.heroKicker} · {text.heroTitleLine1}{' '}
+                {text.heroTitleLine2}
+              </p>
+              <div className="relative w-full">
+                <img
+                  ref={heroBgRef}
+                  src={KIWI.heroBanner}
+                  alt=""
+                  className="block w-full object-cover object-center sm:max-h-[min(70vh,520px)]"
+                  style={{ objectPosition: 'center center' }}
+                  fetchPriority="high"
+                />
+                {/* 이미지 내 좌측 검은 박스(플레이스홀더) 덮기 */}
                 <div
-                  className="pointer-events-none absolute left-1/2 top-1/2 h-[min(100vw,24rem)] w-[min(100vw,24rem)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/25 blur-3xl"
+                  className="absolute left-0 top-[22%] z-20 h-[32%] w-[9%] bg-[#b00020] sm:top-[20%] sm:w-[7%]"
+                  style={{ backgroundImage: 'radial-gradient(rgba(0,0,0,0.2) 1.5px, transparent 1.5px)', backgroundSize: '9px 9px' }}
                   aria-hidden
                 />
+                {/* 과일 위 원형 스티커(타사 마크) 가리기 — 위치는 배너 기준 % */}
                 <div
-                  className="pointer-events-none absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rotate-3 rounded-full border-2 border-white/35"
+                  className="absolute left-[15%] top-[40%] z-20 h-11 w-11 rounded-full bg-gradient-to-br from-[#5c0a18] to-[#2a050c] shadow-inner ring-1 ring-black/30 sm:left-[16%] sm:top-[38%] sm:h-12 sm:w-12"
+                  role="presentation"
                   aria-hidden
                 />
-                <div className="relative z-10 w-full max-w-md px-2">
-                  <img
-                    ref={heroBgRef}
-                    src={KIWI.masthead}
-                    alt="RUBY KIWI — 레드 키위"
-                    className="relative z-10 mx-auto w-full max-w-[20rem] object-contain drop-shadow-2xl sm:max-w-[24rem]"
-                    fetchPriority="high"
-                  />
-                  <div
-                    className="absolute bottom-[6%] left-[4%] z-20 h-8 w-[4.2rem] rounded-sm bg-gradient-to-br from-stone-900/95 to-stone-800/90 shadow-sm ring-1 ring-black/20 sm:bottom-[8%] sm:left-[8%] sm:h-9"
-                    title=""
-                    role="presentation"
-                    aria-hidden
-                  />
-                  <img
-                    src={KIWI.heroSlice}
-                    alt=""
-                    className="absolute -right-1 top-0 z-20 w-24 -rotate-6 object-contain drop-shadow-lg sm:-right-2 sm:top-2 sm:w-32 sm:rotate-12"
-                  />
-                </div>
-              </div>
-              <div className="flex flex-col items-center justify-center px-2 text-center sm:items-end sm:pr-2 sm:text-right">
-                <p
-                  data-i18n
-                  className="font-hero-script text-4xl leading-tight text-white drop-shadow-sm sm:text-5xl md:text-6xl"
-                >
-                  {text.heroNaturally}
-                </p>
-                <p
-                  data-i18n
-                  className="font-hero-display mt-1 text-4xl leading-[0.9] tracking-[0.12em] text-amber-100 drop-shadow-md sm:mt-2 sm:text-6xl md:text-7xl"
-                >
-                  {text.heroBerrySweet}
-                </p>
-                <p data-i18n className="mt-5 max-w-sm text-pretty text-xs font-medium text-white/90 sm:mt-7 sm:text-sm">
-                  {text.heroKicker} · {text.heroTitleLine1} {text.heroTitleLine2}
-                </p>
               </div>
             </div>
           </div>

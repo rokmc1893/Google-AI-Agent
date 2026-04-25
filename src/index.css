@@ -22,7 +22,8 @@
 
 @layer components {
   .bg-halftone-hero {
-    background-color: #c91840;
+    /* 캡처 배너에 맞춘 딥레드 + 도트 */
+    background-color: #b00020;
     background-image: radial-gradient(
       rgba(0, 0, 0, 0.22) 1.5px,
       transparent 1.5px

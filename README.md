@@ -66,6 +66,30 @@ npm run build
 - Actions에서 해당 실행이 **초록색(성공)** 인지 확인합니다.
 - 잠시 후 `https://rokmc1893.github.io/Google-AI-Agent/` 로 접속합니다.
 
+### 브라우저에 **「There isn't a GitHub Pages site here」** / **404** 가 뜰 때
+
+이 문구는 **“이 주소에 GitHub Pages가 아직 연결되어 있지 않다”**는 뜻입니다. (앱 코드 오류와는 별개입니다.)
+
+아래를 **위에서부터** 확인하세요.
+
+1. **주소가 정확한지**  
+   프로젝트 페이지는 반드시 **`https://rokmc1893.github.io/Google-AI-Agent/`** 처럼 **저장소 이름까지** 포함해야 합니다.  
+   `https://rokmc1893.github.io/` 만 열면 (저장소 없이 사용자 사이트만) 대부분 이렇게 뜹니다.
+
+2. **Pages 소스가 `gh-pages` 브랜치인지**  
+   예전에 **Source: GitHub Actions** 로 두었다면, 지금 워크플로는 **`gh-pages`에 올리는 방식**이라 설정을 바꿔야 합니다.  
+   **Settings → Pages** → **Deploy from a branch** → **`gh-pages`** / **`/(root)`** → **Save**  
+   (여전히 **GitHub Actions**로 되어 있으면 이 주소에 사이트가 안 붙을 수 있습니다.)
+
+3. **`gh-pages` 브랜치가 있는지**  
+   GitHub **Code** 탭에서 브랜치를 **`gh-pages`** 로 바꿔 보세요.  
+   없으면 Actions의 **Deploy to GitHub Pages** 워크플로가 실패했거나 아직 안 돌았습니다. **Read and write** 권한 후 다시 실행하세요.
+
+4. **저장소가 Public인지**  
+   Private이면 무료 계정에서 Pages가 막혀 이 화면이 나올 수 있습니다.
+
+5. **저장 직후 1~5분** 정도 지나 다시 새로고침해 보세요.
+
 ### 배포가 실패할 때 (자주 나는 원인)
 
 | 증상 | 조치 |

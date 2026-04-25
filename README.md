@@ -57,6 +57,16 @@ npm run build
 
 자세한 설명은 GitHub 문서 [Publishing with a custom GitHub Actions workflow](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#publishing-with-a-custom-github-actions-workflow) 를 참고하면 됩니다.
 
+### 배포가 404로 실패할 때 (`Creating Pages deployment failed`)
+
+Actions 로그에 **`Failed to create deployment (status: 404)`** 가 나오면, 코드 문제가 아니라 **저장소에서 GitHub Pages가 아직 “켜지지 않은” 상태**인 경우가 많습니다.
+
+1. **Settings → Pages** 로 이동합니다.
+2. **Build and deployment**에서 **Source**를 **`GitHub Actions`** 로 선택하고 저장합니다.  
+   (한 번도 Pages를 켠 적이 없으면 이 설정이 비어 있어 배포 API가 404를 반환합니다.)
+3. 저장소가 **비공개**인 경우, 무료 플랜에서는 Pages 사용 조건이 달라질 수 있으니 [GitHub Pages 제한](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits) 을 확인합니다.
+4. 설정을 저장한 뒤, Actions에서 **실패한 워크플로를 “Re-run failed jobs”** 하거나, 빈 커밋으로 다시 푸시해 배포를 재시도합니다.
+
 ### 3) 로컬에서 Pages와 동일한 경로로 빌드 테스트 (선택)
 
 ```bash

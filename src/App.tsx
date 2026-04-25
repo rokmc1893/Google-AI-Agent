@@ -45,8 +45,8 @@ const KIWI = {
   product: '/rubyred-product.png',
   middle: '/rubyred-middle.jpg',
   mobile: '/rubyred-mobile.png',
-  /** 프로모션 배너(좌·우 레이아웃) — public/hero-ruby-kiwi-banner.png */
-  heroBanner: '/hero-ruby-kiwi-banner.png',
+  /** 와이드 히어로(키위+타이포) — public/hero-ruby-kiwi-main.jpg */
+  heroBanner: '/hero-ruby-kiwi-main.jpg',
 } as const
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -432,49 +432,40 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      <section ref={heroRef} id="top" className="border-b border-ruby/10 bg-ivory-rose pb-12 pt-16 sm:pb-20 sm:pt-[4.75rem]">
-        <div className="relative mx-auto max-w-6xl px-0 sm:px-4">
-          {/* 프로모션 배너 이미지 1장(좌: 콜라주 / 우: Naturally·BERRY SWEET) — HTML 텍스트는 스크린리더용만 */}
-          <div className="relative overflow-hidden sm:rounded-[2rem] sm:ring-1 sm:ring-white/15">
-            <div className="bg-halftone-hero absolute inset-0" aria-hidden />
+      <section ref={heroRef} id="top" className="border-b border-stone-200/80 bg-stone-50 pb-10 pt-16 sm:pb-16 sm:pt-[4.75rem]">
+        <div className="relative mx-auto max-w-5xl px-3 sm:px-5">
+          <p className="sr-only">
+            {text.heroNaturally} {text.heroBerrySweet}. {text.heroKicker} · {text.heroTitleLine1}{' '}
+            {text.heroTitleLine2}
+          </p>
+          <div
+            className="group relative overflow-hidden rounded-2xl bg-[#5c0a12] shadow-[0_20px_50px_-12px_rgba(80,0,20,0.35)] ring-1 ring-black/5 sm:rounded-3xl"
+          >
             <div
               ref={heroDimRef}
-              className="absolute inset-0 bg-gradient-to-b from-black/0 via-transparent to-black/15"
+              className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-black/20 via-transparent to-black/5"
             />
-            <div className="relative z-10">
-              <p className="sr-only">
-                {text.heroNaturally} {text.heroBerrySweet}. {text.heroKicker} · {text.heroTitleLine1}{' '}
-                {text.heroTitleLine2}
-              </p>
-              <div className="relative w-full">
-                <img
-                  ref={heroBgRef}
-                  src={KIWI.heroBanner}
-                  alt=""
-                  className="block w-full object-cover object-center sm:max-h-[min(70vh,520px)]"
-                  style={{ objectPosition: 'center center' }}
-                  fetchPriority="high"
-                />
-                {/* 이미지 내 좌측 검은 박스(플레이스홀더) 덮기 */}
-                <div
-                  className="absolute left-0 top-[22%] z-20 h-[32%] w-[9%] bg-[#b00020] sm:top-[20%] sm:w-[7%]"
-                  style={{ backgroundImage: 'radial-gradient(rgba(0,0,0,0.2) 1.5px, transparent 1.5px)', backgroundSize: '9px 9px' }}
-                  aria-hidden
-                />
-                {/* 과일 위 원형 스티커(타사 마크) 가리기 — 위치는 배너 기준 % */}
-                <div
-                  className="absolute left-[15%] top-[40%] z-20 h-11 w-11 rounded-full bg-gradient-to-br from-[#5c0a18] to-[#2a050c] shadow-inner ring-1 ring-black/30 sm:left-[16%] sm:top-[38%] sm:h-12 sm:w-12"
-                  role="presentation"
-                  aria-hidden
-                />
-              </div>
+            <div className="relative aspect-[8/3] w-full min-h-[12rem] sm:min-h-[16rem]">
+              <img
+                ref={heroBgRef}
+                src={KIWI.heroBanner}
+                alt=""
+                className="absolute inset-0 h-full w-full object-cover object-center"
+                fetchPriority="high"
+              />
+              {/* 키위 껍질 하단·좌측 스티커(타사 마크) — 와이드 8:3 기준 */}
+              <div
+                className="absolute bottom-[4%] left-[1.5%] z-[2] h-[12%] min-h-8 w-[10%] min-w-12 rounded-full bg-gradient-to-br from-[#3d0a10] to-[#1a0406] shadow-[inset_0_1px_2px_rgba(255,255,255,0.06)] ring-1 ring-black/25 sm:bottom-[5%] sm:left-[2%] sm:h-[11%] sm:w-[8%]"
+                role="presentation"
+                aria-hidden
+              />
             </div>
           </div>
 
-          <div className="relative z-10 mx-auto -mt-6 max-w-3xl px-4 sm:-mt-10 sm:px-0">
+          <div className="relative z-10 mx-auto mt-6 max-w-3xl sm:mt-8 sm:px-0">
             <div
               ref={heroTextRef}
-              className="rounded-2xl bg-panel/95 p-7 text-center shadow-xl shadow-ruby/10 ring-1 ring-ruby/12 backdrop-blur-sm sm:p-9"
+              className="rounded-2xl border border-stone-200/80 bg-white p-7 text-center shadow-sm sm:rounded-3xl sm:p-9"
             >
               <h1 className="text-balance">
                 <span

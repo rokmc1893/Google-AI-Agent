@@ -40,13 +40,15 @@ type Copy = {
   navTagline: string
 }
 
+const asset = (file: string) => `${import.meta.env.BASE_URL}${file}`
+
 const KIWI = {
-  blog: '/rubyred-blog.png',
-  product: '/rubyred-product.png',
-  middle: '/rubyred-middle.jpg',
-  mobile: '/rubyred-mobile.png',
+  blog: asset('rubyred-blog.png'),
+  product: asset('rubyred-product.png'),
+  middle: asset('rubyred-middle.jpg'),
+  mobile: asset('rubyred-mobile.png'),
   /** 와이드 히어로(키위+타이포) — public/hero-ruby-kiwi-main.jpg */
-  heroBanner: '/hero-ruby-kiwi-main.jpg',
+  heroBanner: asset('hero-ruby-kiwi-main.jpg'),
 } as const
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']

@@ -100,9 +100,13 @@ npm run build
 
 자세한 제한은 [GitHub Pages limits](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits) 를 참고합니다.
 
-### 3) 로컬에서 Pages와 동일한 경로로 빌드 테스트 (선택)
+### 3) 로컬에서 Pages와 비슷하게 빌드 테스트 (선택)
+
+CI와 같이 **상대 경로(`./`) base**로 빌드하려면:
 
 ```bash
-GITHUB_REPOSITORY=rokmc1893/Google-AI-Agent npm run build
+GITHUB_ACTIONS=true GITHUB_REPOSITORY=rokmc1893/Google-AI-Agent npm run build
 npx vite preview
 ```
+
+또한 `public/.nojekyll` 을 두어 GitHub Pages의 Jekyll 처리로 인한 누락을 막습니다.

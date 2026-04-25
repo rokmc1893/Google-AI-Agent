@@ -2,10 +2,11 @@ import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 
-// GitHub Pages 프로젝트 사이트: https://<user>.github.io/<repo>/
-// CI에서만 GITHUB_REPOSITORY가 잡히므로, 로컬 `npm run dev`는 base가 '/'로 유지됩니다.
+// GitHub Pages: https://<user>.github.io/<repo>/
+// - CI(Actions)에서는 상대 경로 base('./')로 빌드해 저장소 이름 대소문자·경로 불일치로 인한 404를 줄입니다.
+// - 로컬 dev는 '/'.
 const repoName = (process.env.GITHUB_REPOSITORY ?? '').split('/')[1]
-const base = repoName ? `/${repoName}/` : '/'
+const base = process.env.GITHUB_ACTIONS === 'true' ? './' : repoName ? `/${repoName}/` : '/'
 
 // https://vite.dev/config/
 export default defineConfig({

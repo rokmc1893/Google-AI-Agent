@@ -44,18 +44,18 @@ npm run build
 
 ### 1) 저장소 설정 (최초 1회)
 
-1. GitHub 저장소 **Settings → Actions → General** 로 이동합니다.
-2. **Workflow permissions**에서 **Read and write permissions**를 선택하고 저장합니다.  
-   (`gh-pages` 브랜치에 빌드 결과를 푸시하려면 쓰기 권한이 필요합니다.)
-3. **Settings → Pages** 로 이동합니다.
-4. **Build and deployment**의 **Source**를 **Deploy from a branch**로 둡니다.
-5. **Branch**는 **`gh-pages` / `(root)`** 를 선택합니다.  
-   (처음에는 브랜치가 없을 수 있습니다. 아래 워크플로를 한 번 돌린 뒤 다시 설정하면 됩니다.)
+배포는 **`gh-pages` 브랜치에 직접 푸시하지 않고**, GitHub이 제공하는 **Pages 전용 배포 API**를 씁니다. 그래서 예전처럼 Actions에 **Read and write**를 켤 필요가 없습니다(기본 **Read**로 충분).
+
+1. **Settings → Pages** 로 이동합니다.
+2. **Build and deployment** → **Source**를 **GitHub Actions** 로 바꿉니다.  
+   (이전에 **Deploy from a branch** + `gh-pages` 로 두었다면, 반드시 **GitHub Actions** 로 바꿔 주세요.)
 
 ### 2) 배포 방법
 
-- `main` 또는 `1주차` 브랜치에 푸시하면 **GitHub Actions**가 자동으로 `npm run build` 후 `gh-pages` 브랜치에 올립니다.
+- `main` 또는 `1주차` 브랜치에 푸시하면 워크플로가 `npm run build` 후 결과물을 Pages에 올립니다.
 - Actions 탭에서 **Deploy to GitHub Pages** 워크플로가 초록색으로 끝나면, 위 Pages 주소로 접속해 확인합니다.
+
+자세한 설명은 GitHub 문서 [Publishing with a custom GitHub Actions workflow](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#publishing-with-a-custom-github-actions-workflow) 를 참고하면 됩니다.
 
 ### 3) 로컬에서 Pages와 동일한 경로로 빌드 테스트 (선택)
 
